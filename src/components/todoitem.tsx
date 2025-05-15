@@ -5,7 +5,7 @@ interface Card { id: number
     text: string    
 }
 
-export default function TodoItem({value}: {value: string}) {
+export const TodoItem = ({value}: {value: string}) => {
 
 
     return (
