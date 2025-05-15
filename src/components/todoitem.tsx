@@ -5,12 +5,12 @@ interface Card { id: number
     text: string    
 }
 
-export default function TodoItem(name: {name: string}) {
+export default function TodoItem({value}: {value: string}) {
 
 
     return (
         <div>
-            <h1>{name}</h1>
+            <h1>{value}</h1>
         </div>
     );
   }
