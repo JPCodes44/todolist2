@@ -1,17 +1,17 @@
-import TodoItem from "./todoitem";
+import { JSX } from "react";
+import { TodoItem } from "./todoitem";
 
 interface List {
     value: string,
-    array: String[]
+    array: string[]
 }
 
-export default function TodoList({value, array}: List) {
+export const TodoList = ({value, array}: {value: string; array: string[];}) => {
     
+    const listItems = array.map((text, idx) => <li key={idx}>{text}</li>)
     return (
         <div>
-            <li>
-                <TodoItem value={value} />
-            </li>
+            {listItems}
         </div>
 );
   }

@@ -1,23 +1,20 @@
 'use client';                             // ← Must be FIRST line
 import { useState } from 'react';
-import TodoList from '../components/todoitem'
+import { TodoList } from '../components/todolist'
 
 export default function TodoForm() {
 
     const [value, setValue] = useState('')
 
-    const array: String[] = []
+    const [items, setItems] = useState<string[]>([])
 
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
         if (!value.trim()) return;       // ignore empty
-        array.push(value)
-        console.log(value)
+        items.push(value);
+        console.log(items);
         setValue(''); 
     }
-
-    
-
 
     return (
         <form onSubmit={handleSubmit} style={{padding: "50px", display: "flex", flexDirection: "column", justifyContent: "center"}}>
@@ -35,7 +32,7 @@ export default function TodoForm() {
                 </label>
             </div>
             <div style={{padding: "50px", display: "flex", justifyContent: "center"}}>
-                <TodoList {...{value, array}}/>
+                <TodoList value={value} array={items}/>
             <button type="submit" style={{ display: 'none' }}>
         
       </button>
