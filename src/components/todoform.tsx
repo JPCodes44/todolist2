@@ -1,6 +1,7 @@
 'use client';                             // ← Must be FIRST line
 import { DetailedHTMLProps, FormEvent, InputHTMLAttributes, JSX, useState } from 'react';
 import { TodoList } from '../components/todolist'
+import { FC } from 'react'
 
 export const TodoForm = () => {
 
@@ -22,7 +23,12 @@ export const TodoForm = () => {
         setValue(''); 
     }
 
-    const InputCard = (): JSX.Element => {
+    type InputCardProps = {
+        value: string;
+        onChange: (React.ChangeEvent<HTMLInputElement>) => void;
+    }
+
+    const InputCard = ({value, onChange}: InputCardProps): JSX.Element => {
         return(
         <input
             type="string"
@@ -37,16 +43,16 @@ export const TodoForm = () => {
         children?: React.ReactNode
     }
 
-    const Label = (): JSX.Element => {
+    const Label = ({children}: LabelProps): JSX.Element => {
         return(
-        <label style={{display: "flex", justifyContent: "center"}}></label>)
+            <label style={{display: "flex", justifyContent: "center"}}>{children}</label>)
     }
 
-    const PaddedDiv = (): JSX.Element => {
+    const PaddedDiv = ({children}: LabelProps): JSX.Element => {
         return(
             <div
             style={{padding: "50px", display: "flex", justifyContent: "center"}}
-        ></div>)
+        >{children}</div>)
     }
 
     const SubmitButton = (): JSX.Element => {
@@ -60,7 +66,7 @@ export const TodoForm = () => {
         <form onSubmit={handleSubmit} style={{padding: "50px", display: "flex", flexDirection: "column", justifyContent: "center"}}>
             <PaddedDiv>
                 <Label>
-                    <InputCard />
+                    <InputCard value={value} onChange={setValue}/>
                 </Label>
             </PaddedDiv>
             <PaddedDiv>
