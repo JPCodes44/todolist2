@@ -1,42 +1,73 @@
 'use client';                             // ← Must be FIRST line
-import { useState } from 'react';
+import { DetailedHTMLProps, FormEvent, InputHTMLAttributes, JSX, useState } from 'react';
 import { TodoList } from '../components/todolist'
 
-export default function TodoForm() {
+export const TodoForm = () => {
 
     const [value, setValue] = useState('')
 
     const [items, setItems] = useState<string[]>([])
 
-    function handleSubmit(event: { preventDefault: () => void; }) {
-        event.preventDefault();
+    const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
         if (!value.trim()) return;       // ignore empty
         items.push(value);
         console.log(items);
         setValue(''); 
     }
 
+    const handleDelete = (): JSX.Element | undefined => {
+        if (!value.trim()) return;       // ignore empty
+        setItems(prev => prev.slice(0, -1))
+        setValue(''); 
+    }
+
+    const InputCard = (): JSX.Element => {
+        return(
+        <input
+            type="string"
+            style={{display: "flex", justifyContent: "center"}}
+            value={value}
+            onChange = {e => setValue(e.target.value)}
+            placeholder="Type something">
+        </input>)
+    } 
+
+    type LabelProps = {
+        children?: React.ReactNode
+    }
+
+    const Label = (): JSX.Element => {
+        return(
+        <label style={{display: "flex", justifyContent: "center"}}></label>)
+    }
+
+    const PaddedDiv = (): JSX.Element => {
+        return(
+            <div
+            style={{padding: "50px", display: "flex", justifyContent: "center"}}
+        ></div>)
+    }
+
+    const SubmitButton = (): JSX.Element => {
+        return(<button type="submit" style={{ display: 'none' }}></button>)
+    }
+
+    const DeleteButton = (): JSX.Element => {
+        return(<button type="button" onClick={handleDelete}>Delete</button>)}
+
     return (
         <form onSubmit={handleSubmit} style={{padding: "50px", display: "flex", flexDirection: "column", justifyContent: "center"}}>
-            <div
-                style={{padding: "50px", display: "flex", justifyContent: "center"}}
-            >
-                <label style={{display: "flex", justifyContent: "center"}}>
-                    <input
-                        type="string"
-                        style={{display: "flex", justifyContent: "center"}}
-                        value={value}
-                        onChange = {e => setValue(e.target.value)}
-                        placeholder="Type something">
-                    </input>
-                </label>
-            </div>
-            <div style={{padding: "50px", display: "flex", justifyContent: "center"}}>
+            <PaddedDiv>
+                <Label>
+                    <InputCard />
+                </Label>
+            </PaddedDiv>
+            <PaddedDiv>
                 <TodoList value={value} array={items}/>
-            <button type="submit" style={{ display: 'none' }}>
-        
-      </button>
-            </div>
+                <SubmitButton/>
+                <DeleteButton/>
+            </PaddedDiv>
         </form>
         
 );

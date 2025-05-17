@@ -1,5 +1,7 @@
-import TodoForm from '../components/todoform'
+import { TodoForm } from '../components/todoform'
 
-export default function Home() {
+export const Home = () => {
   return (<TodoForm />);
 }
+
+export default Home
