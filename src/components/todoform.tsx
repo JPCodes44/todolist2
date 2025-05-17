@@ -1,5 +1,5 @@
 'use client';                             // ← Must be FIRST line
-import { DetailedHTMLProps, FormEvent, InputHTMLAttributes, JSX, useState } from 'react';
+import { DetailedHTMLProps, FormEvent, InputHTMLAttributes, JSX, ReactHTMLElement, useState } from 'react';
 import { TodoList } from '../components/todolist'
 import { FC } from 'react'
 
@@ -25,7 +25,7 @@ export const TodoForm = () => {
 
     type InputCardProps = {
         value: string;
-        onChange: (React.ChangeEvent<HTMLInputElement>) => void;
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     }
 
     const InputCard = ({value, onChange}: InputCardProps): JSX.Element => {
@@ -66,7 +66,7 @@ export const TodoForm = () => {
         <form onSubmit={handleSubmit} style={{padding: "50px", display: "flex", flexDirection: "column", justifyContent: "center"}}>
             <PaddedDiv>
                 <Label>
-                    <InputCard value={value} onChange={setValue}/>
+                    <InputCard value={value} onChange={e => setValue(e.target.value)}/>
                 </Label>
             </PaddedDiv>
             <PaddedDiv>
